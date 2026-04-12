@@ -1,8 +1,5 @@
 # Fault-Tolerant 3-Motor Crazyflie Landing - Closed-Form Control Allocation
 
-[![Branch](https://img.shields.io/badge/branch-fault--tolerant--3motor-blue)](https://github.com/dstejagit09/crazyflie-firmware/tree/fault-tolerant-3motor)
-[![Base](https://img.shields.io/badge/base-bitcraze%2Fcrazyflie--firmware-lightgrey)](https://github.com/bitcraze/crazyflie-firmware)
-
 A modified Crazyflie 2.x firmware and toolchain that enables **safe, controlled landing after a single motor failure** using a closed-form 3-motor control allocation. The approach is validated in two independent simulation environments (MuJoCo and CrazySim/Gazebo SITL) and integrates with a Gamma neural network for autonomous fault detection.
 
 ---
