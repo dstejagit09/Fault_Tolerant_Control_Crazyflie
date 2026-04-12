@@ -15,13 +15,12 @@ A modified Crazyflie 2.x firmware and toolchain that enables **safe, controlled 
 4. [Prerequisites](#prerequisites)
 5. [Quick Start](#quick-start)
 6. [Running the Simulations](#running-the-simulations)
-7. [Recording a Demo](#recording-a-demo)
-8. [How Fault Injection Works](#how-fault-injection-works)
-9. [Integration with Gamma FDI Network](#integration-with-gamma-fdi-network)
-10. [Simulation Results Summary](#simulation-results-summary)
-11. [Branch Info](#branch-info)
-12. [Authors](#authors)
-13. [License](#license)
+7. [How Fault Injection Works](#how-fault-injection-works)
+8. [Integration with Gamma FDI Network](#integration-with-gamma-fdi-network)
+9. [Simulation Results Summary](#simulation-results-summary)
+10. [Branch Info](#branch-info)
+11. [Authors](#authors)
+12. [License](#license)
 
 ---
 
