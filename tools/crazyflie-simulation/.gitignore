@@ -1,0 +1,15 @@
+*.blend1
+*.pyc
+
+# Gazebo plugin build artifacts
+simulator_files/gazebo/plugins/CrazySim/build/
+
+# Drone spawn list (user files ignored, default example tracked)
+drone_spawn_list/*
+!drone_spawn_list/single_origin.txt
+simulator_files/gazebo/launch/drone_spawn_list/
+
+# MuJoCo Python cache
+simulator_files/mujoco/__pycache__/
+simulator_files/mujoco/*.pyc
+

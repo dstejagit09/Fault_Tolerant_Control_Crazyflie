@@ -1,0 +1,99 @@
+<mujoco model="MuJoCo : Drone scene">
+  <!--
+    Lightweight Crazyflie 2 MuJoCo model for SITL fault-tolerance testing.
+    Mass and inertia from Bitcraze datasheet + MIT system-ID (Landry 2015).
+    No mesh files required — geometry is schematic only.
+    Visual style: blue/teal checkerboard ground, dark-blue gradient sky,
+    soft ambient + angled directional light with shadow.
+  -->
+  <option integrator="RK4" gravity="0 0 -9.81" timestep="0.002"/>
+
+  <visual>
+    <!-- Ambient fill keeps the scene bright from all directions.
+         haze tints the far-field fog to match the dark-blue sky. -->
+    <headlight diffuse="0.70 0.70 0.75" ambient="0.50 0.50 0.55" specular="0 0 0"/>
+    <rgba haze="0.10 0.18 0.32 1"/>
+  </visual>
+
+  <asset>
+    <!-- Sky: dark-blue gradient (top → bottom). No bright skybox —
+         matches the flat dark-blue background in the reference. -->
+    <texture type="skybox" builtin="gradient"
+             rgb1="0.18 0.30 0.48" rgb2="0.06 0.12 0.22"
+             width="512" height="512"/>
+
+    <!-- Ground: two-tone teal/blue checkerboard with bright edge markings.
+         texrepeat="1 1" + texuniform="true" → each checker square ≈ 0.5 m. -->
+    <texture type="2d" name="ground" builtin="checker"
+             rgb1="0.27 0.50 0.70" rgb2="0.18 0.36 0.56"
+             markrgb="0.82 0.90 0.97" mark="edge"
+             width="512" height="512"/>
+    <material name="ground" texture="ground" texuniform="true"
+              texrepeat="1 1" reflectance="0.08"/>
+
+    <!-- Drone materials — unchanged from original -->
+    <material name="frame"      rgba="0.10 0.10 0.10 1"/>
+    <material name="prop"       rgba="0.75 0.80 0.92 1"/>
+    <material name="motor_ok"   rgba="0.20 0.80 0.20 1"/>
+    <material name="motor_fail" rgba="0.90 0.10 0.10 1"/>
+  </asset>
+
+  <worldbody>
+    <!-- Ambient fill: overhead, no shadow, keeps underside of drone visible -->
+    <light name="fill" pos="0 0 4" dir="0 0 -1" directional="true"
+           diffuse="0.40 0.40 0.45" specular="0 0 0" castshadow="false"/>
+    <!-- Sun: angled from front-right, casts a soft shadow under the drone -->
+    <light name="sun" pos="3 -2 5" dir="-0.45 0.30 -0.84" directional="true"
+           diffuse="0.60 0.60 0.65" specular="0.08 0.08 0.08" castshadow="true"/>
+    <geom name="floor" type="plane" size="0 0 0.05" material="ground"/>
+
+    <!--
+      CF2 body — spawns at (0, 0, 0.5) facing +x.
+      Motor layout (viewed from above, +x forward, +y left):
+        M1 (front-left,  CCW):  ( L,  L)
+        M2 (back-left,   CW):   (-L,  L)
+        M3 (back-right,  CCW):  (-L, -L)
+        M4 (front-right, CW):   ( L, -L)
+      where L = 0.0325 m = 0.046 * sin(45°)
+    -->
+    <body name="cf2" pos="0 0 0.5" euler="0 0 0">
+      <freejoint name="root"/>
+      <inertial pos="0 0 0" mass="0.027"
+                diaginertia="2.3951e-5 2.3951e-5 3.2347e-5"/>
+
+      <!-- Camera for tracking -->
+      <camera name="track" pos="-1.2 0 0.6" xyaxes="0 -1 0 1 0 2"
+              mode="trackcom"/>
+      <camera name="top" pos="0 0 2.5" xyaxes="1 0 0 0 1 0" mode="trackcom"/>
+
+      <!-- Main frame cross (schematic) -->
+      <geom name="arm_fw" type="box"
+            pos="0 0 0" size="0.046 0.005 0.003" material="frame"/>
+      <geom name="arm_lat" type="box"
+            pos="0 0 0" size="0.005 0.046 0.003" material="frame"/>
+      <geom name="body_pcb" type="box"
+            pos="0 0 0" size="0.020 0.020 0.007" material="frame"/>
+
+      <!-- Props (cylinders at motor positions, coloured by health) -->
+      <geom name="prop1" type="cylinder"
+            pos=" 0.0325  0.0325 0.006" size="0.023 0.002" material="motor_ok"/>
+      <geom name="prop2" type="cylinder"
+            pos="-0.0325  0.0325 0.006" size="0.023 0.002" material="motor_ok"/>
+      <geom name="prop3" type="cylinder"
+            pos="-0.0325 -0.0325 0.006" size="0.023 0.002" material="motor_ok"/>
+      <geom name="prop4" type="cylinder"
+            pos=" 0.0325 -0.0325 0.006" size="0.023 0.002" material="motor_ok"/>
+
+      <!-- IMU site at centre of mass -->
+      <site name="imu" pos="0 0 0" size="0.005"/>
+    </body>
+  </worldbody>
+
+  <sensor>
+    <gyro         name="body_gyro"  site="imu"/>
+    <accelerometer name="body_linacc" site="imu"/>
+    <framequat    name="body_quat"  objtype="site" objname="imu"/>
+    <framepos     name="body_pos"   objtype="site" objname="imu"/>
+    <framelinvel  name="body_linvel" objtype="site" objname="imu"/>
+  </sensor>
+</mujoco>
