@@ -348,35 +348,6 @@ python3 tools/verify_3motor_allocation.py
 
 ---
 
-## Recording a Demo
-
-### GNOME built-in screen recorder (no install needed)
-
-1. Run `python3 tools/mujoco_sim/simu_demo.py --all`
-2. The viewer opens with a **4-second countdown** — use it to fullscreen the window
-3. Press **`Ctrl + Shift + Alt + R`** to start recording
-4. Press **`Ctrl + Shift + Alt + R`** again to stop
-5. Video saved to `~/Videos/` as `.webm`
-
-### OBS Studio (higher quality, recommended)
-
-```bash
-sudo apt install obs-studio
-```
-
-1. Open OBS → **Sources** → `+` → **Screen Capture**
-2. Select the MuJoCo viewer window
-3. **Settings → Output** → choose MP4
-4. Start demo, click **Start Recording**, click **Stop** when done
-
-### Using the shell wrapper
-
-```bash
-cd ~/crazyflie-firmware-ft/tools/mujoco_sim
-./run_demo.sh --all          # prints recording guide, then launches
-./run_demo.sh --motor 2      # single case
-```
-
 ### Tips
 
 - **Fullscreen the viewer before starting** — drag to fill the screen or press F11
@@ -563,12 +534,9 @@ ftAlloc.residualYaw  → non-zero, shows uncontrolled yaw torque
 
 ---
 
-## Branch Info
+## Repo Info
 
 | Item | Value |
-|---|---|
-| Fork | [github.com/dstejagit09/crazyflie-firmware](https://github.com/dstejagit09/crazyflie-firmware) |
-| Branch | `fault-tolerant-3motor` |
 | Based on | `bitcraze/crazyflie-firmware` master |
 | Modified files | `src/modules/src/power_distribution_quadrotor.c` |
 | Added files | `tools/mujoco_sim/`, `tools/gamma_fdi.py`, `tools/gamma_cflib_bridge.py`, `tools/e2e_ft_test.py`, `tools/sitl_ft_test.py`, `tools/verify_3motor_allocation.py`, `tools/plot_ft_results.py`, `results/` |
