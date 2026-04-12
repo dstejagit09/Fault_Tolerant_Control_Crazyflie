@@ -1,4 +1,4 @@
-# Fault-Tolerant 3-Motor Crazyflie Landing — Closed-Form Control Allocation
+# Fault-Tolerant 3-Motor Crazyflie Landing - Closed-Form Control Allocation
 
 [![Branch](https://img.shields.io/badge/branch-fault--tolerant--3motor-blue)](https://github.com/dstejagit09/crazyflie-firmware/tree/fault-tolerant-3motor)
 [![Base](https://img.shields.io/badge/base-bitcraze%2Fcrazyflie--firmware-lightgrey)](https://github.com/bitcraze/crazyflie-firmware)
