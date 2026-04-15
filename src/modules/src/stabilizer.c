@@ -53,7 +53,7 @@
 #include "supervisor.h"
 
 #include "estimator.h"
-//#include "usddeck.h"
+#include "usddeck.h"
 #include "quatcompress.h"
 #include "statsCnt.h"
 #include "static_mem.h"
