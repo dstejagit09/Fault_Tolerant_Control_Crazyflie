@@ -59,6 +59,14 @@
     // kg
     #define CF_MASS     0.027f
 #endif
+#ifndef THRUST_MAX
+    // N (per motor) - maximum thrust per motor
+    #define THRUST_MAX  0.16f
+#endif
+#ifndef THRUST2TORQUE
+    // Ratio of torque to thrust (N*m / N)
+    #define THRUST2TORQUE 0.00569278844371417f
+#endif
 
 // IMU alignment on the airframe 
 #ifndef IMU_PHI
