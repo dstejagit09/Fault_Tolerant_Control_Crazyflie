@@ -106,7 +106,7 @@ static void timerHandler(xTimerHandle timer) {
 
       uint32_t taskRunTime = stats->ulRunTimeCounter;
       float load = f * (taskRunTime - previousTaskData->ulRunTimeCounter);
-      DEBUG_PRINT("%.2f \t%u \t%s\n", (double)load, stats->usStackHighWaterMark, stats->pcTaskName);
+      DEBUG_PRINT("%.2f \t%lu \t%s\n", (double)load, (unsigned long)stats->usStackHighWaterMark, stats->pcTaskName);
 
       previousTaskData->ulRunTimeCounter = taskRunTime;
     }
