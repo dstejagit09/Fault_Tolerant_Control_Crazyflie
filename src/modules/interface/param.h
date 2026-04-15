@@ -27,6 +27,7 @@
 #pragma once
 
 #include <stdint.h>
+#include <errno.h>
 
 // Include param_logic.h for backwards compatibility in apps
 #include "param_logic.h"
@@ -109,6 +110,10 @@ typedef float * (*paramGetterFloat)(void);
 #define MISC_PERSISTENT_GET_STATE 4
 #define MISC_PERSISTENT_CLEAR     5
 #define MISC_GET_DEFAULT_VALUE    6
+#define MISC_GET_DEFAULT_VALUE_V2 7
+#define MISC_GET_EXTENDED_TYPE_V2 8
+
+#define PARAM_NOT_FOUND ENOENT
 
 /* Macros */
 

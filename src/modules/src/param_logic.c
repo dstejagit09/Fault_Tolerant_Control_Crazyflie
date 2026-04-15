@@ -674,6 +674,29 @@ void paramGetExtendedType(CRTPPacket *p)
   crtpSendPacketBlock(p);
 }
 
+void paramGetExtendedTypeV2(CRTPPacket *p)
+{
+  int index;
+  uint16_t id;
+
+  memcpy(&id, &p->data[1], 2);
+  index = variableGetIndex(id);
+
+  if (index < 0 || !(params[index].type & PARAM_EXTENDED)) {
+    p->data[3] = ENOENT;
+    p->size = 4;
+    crtpSendPacketBlock(p);
+    return;
+  }
+
+  // V2 format: status byte at [3] (0x00 = success), then extended type
+  p->data[3] = 0x00;
+  p->data[4] = params[index].extended_type;
+  p->size = 5;
+
+  crtpSendPacketBlock(p);
+}
+
 static void generateStorageKey(const uint16_t index, char key[KEY_LEN])
 {
   char *group;
@@ -740,6 +763,34 @@ void paramGetDefaultValue(CRTPPacket *p)
     memcpy(&p->data[3], paramGetDefault(index), paramLen);
   }
   p->size = 3 + paramLen;
+  crtpSendPacketBlock(p);
+}
+
+void paramGetDefaultValueV2(CRTPPacket *p)
+{
+  uint16_t id;
+
+  memcpy(&id, &p->data[1], sizeof(id));
+  int index = variableGetIndex(id);
+
+  const bool doesParamExist = (index >= 0);
+  // Read-only parameters have no default value
+  if (!doesParamExist || params[index].type & PARAM_RONLY) {
+    p->data[3] = ENOENT;
+    p->size = 4;
+    crtpSendPacketBlock(p);
+    return;
+  }
+
+  // V2 format: status byte at [3] (0x00 = success), then value
+  p->data[3] = 0x00;
+  uint8_t paramLen = paramGetLen(index);
+  if (params[index].getter) {
+    memcpy(&p->data[4], params[index].getter(), paramLen);
+  } else {
+    memcpy(&p->data[4], paramGetDefault(index), paramLen);
+  }
+  p->size = 4 + paramLen;
   crtpSendPacketBlock(p);
 }
 
