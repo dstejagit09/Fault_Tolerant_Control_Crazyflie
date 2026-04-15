@@ -223,7 +223,7 @@ void controllerLee(controllerLee_t* self, control_t *control, const setpoint_t *
   struct vec zdes = mcolumn(self->R_des, 2);
   struct vec hw = vzero();
   // Desired Jerk and snap for now are zeros vector
-  struct vec desJerk = mkvec(setpoint->jerk.x, setpoint->jerk.y, setpoint->jerk.z);
+  struct vec desJerk = vzero();
 
   if (control->thrustSi != 0) {
     struct vec tmp = vsub(desJerk, vscl(vdot(zdes, desJerk), zdes));
