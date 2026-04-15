@@ -54,7 +54,7 @@ class EstimatorKalmanEmulator:
             cffirmware.axis3fSubSamplerFinalize(self.accSubSampler)
             cffirmware.axis3fSubSamplerFinalize(self.gyroSubSampler)
 
-            cffirmware.kalmanCorePredict(self.coreData, self.coreParams, self.accSubSampler.subSample,
+            cffirmware.kalmanCorePredict(self.coreData, self.accSubSampler.subSample,
                                          self.gyroSubSampler.subSample, self.now_ms, quad_is_flying)
 
             self.next_prediction_ms += self.PREDICT_STEP_MS

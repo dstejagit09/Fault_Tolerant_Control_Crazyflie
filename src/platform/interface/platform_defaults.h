@@ -45,6 +45,9 @@
 #ifdef CONFIG_PLATFORM_FLAPPER
     #include "platform_defaults_flapper.h"
 #endif
+#ifdef CONFIG_PLATFORM_CF21BL
+    #include "platform_defaults_cf21bl.h"
+#endif
 #ifdef CONFIG_PLATFORM_SITL
     #include "platform_defaults_sitl.h"
 #endif
