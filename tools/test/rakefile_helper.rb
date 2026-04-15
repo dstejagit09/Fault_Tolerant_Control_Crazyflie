@@ -22,6 +22,8 @@ module RakefileHelpers
     config_file += '.yml' unless config_file =~ /\.yml$/
     load_configuration(config_file)
     configure_clean
+    FileUtils.mkdir_p($cfg['compiler']['build_path']) unless $cfg['compiler']['build_path'].nil?
+    FileUtils.mkdir_p($cfg['compiler']['mocks_path']) unless $cfg['compiler']['mocks_path'].nil?
   end
 
   def get_unit_test_files
