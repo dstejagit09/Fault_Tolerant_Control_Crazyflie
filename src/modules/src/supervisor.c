@@ -455,7 +455,7 @@ bool supervisorAreMotorsAllowedToRun() {
 void infoDump(const SupervisorMem_t* this) {
   DEBUG_PRINT("Supervisor info ---\n");
   DEBUG_PRINT("State: %s\n", supervisorGetStateName(this->state));
-  DEBUG_PRINT("Conditions: (0x%x)\n", this->latestConditions);
+  DEBUG_PRINT("Conditions: (0x%lx)\n", this->latestConditions);
   for (supervisorConditions_t condition = 0; condition < supervisorCondition_NrOfConditions; condition++) {
     const supervisorConditionBits_t bit = 1 << condition;
     int bitValue = 0;
@@ -463,7 +463,7 @@ void infoDump(const SupervisorMem_t* this) {
       bitValue = 1;
     }
 
-    DEBUG_PRINT("  %s (0x%x): %u\n", supervisorGetConditionName(condition), bit, bitValue);
+    DEBUG_PRINT("  %s (0x%lx): %u\n", supervisorGetConditionName(condition), bit, bitValue);
   }
 }
 
