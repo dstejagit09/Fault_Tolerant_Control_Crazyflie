@@ -6,9 +6,9 @@
 
 // Memory handler ------------------------------------
 
-static uint32_t handleMemGetSize(const uint8_t internal_id) { return 17; }
-static bool handleMemRead(const uint8_t internal_id, const uint32_t memAddr, const uint8_t readLen, uint8_t* buffer);
-static bool handleMemWrite(const uint8_t internal_id, const uint32_t memAddr, const uint8_t writeLen, const uint8_t* buffer);
+static uint32_t handleMemGetSize(void) { return 17; }
+static bool handleMemRead(const uint32_t memAddr, const uint8_t readLen, uint8_t* buffer);
+static bool handleMemWrite(const uint32_t memAddr, const uint8_t writeLen, const uint8_t* buffer);
 
 static const MemoryHandlerDef_t memoryDef = {
   .type = MEM_TYPE_APP,
@@ -113,13 +113,13 @@ void testWrite() {
 
 // --------------------------------
 
-static bool handleMemRead(const uint8_t internal_id, const uint32_t memAddr, const uint8_t readLen, uint8_t* buffer) {
+static bool handleMemRead(const uint32_t memAddr, const uint8_t readLen, uint8_t* buffer) {
   TEST_ASSERT_EQUAL(READ_ADDRESS, memAddr);
   TEST_ASSERT_EQUAL(READ_LEN, readLen);
   return true;
 }
 
-static bool handleMemWrite(const uint8_t internal_id, const uint32_t memAddr, const uint8_t writeLen, const uint8_t* buffer) {
+static bool handleMemWrite(const uint32_t memAddr, const uint8_t writeLen, const uint8_t* buffer) {
   TEST_ASSERT_EQUAL(WRITE_ADDRESS, memAddr);
   TEST_ASSERT_EQUAL(WRITE_LEN, writeLen);
   return true;
